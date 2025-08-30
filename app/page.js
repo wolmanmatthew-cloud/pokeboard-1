@@ -22,7 +22,7 @@ export default function Home() {
       .catch((error) => {console.log(error)})
   }, [])
   
-  function changePage(pageNumber: Number) {
+  function changePage(pageNumber) {
     axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${(pageNumber * 20) - 20}`)
       .then((response) => {
         setData(response.data)
