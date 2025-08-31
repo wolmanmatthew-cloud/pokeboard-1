@@ -2,6 +2,9 @@
 import './pokecard.css'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import typeObject from '../type-icons'
+import grassSvg from '../resources/icons/grass.svg'
+import Image from 'next/image'
 
 export default function PokeCard({ data }) {
     const [pokemonInfo, setPokemonInfo] = useState({})
@@ -30,8 +33,15 @@ export default function PokeCard({ data }) {
                 </div>
             </div>
             <div className={`flex justify-center align-center ${showTypes ? "block" : "hidden"}`}>
-                <ol>
-                    {pokemonInfo.types && pokemonInfo.types.map((type => <li>{type.type.name}</li>))}
+                <ol className="flex">
+                    {pokemonInfo.types && pokemonInfo.types.map((type => 
+                        <li className="p-3">
+                            <div className={`icon ${type.type.name}`}>
+                                <Image src={typeObject[type.type.name]} title={`${type.type.name}`}/>
+                            </div>
+                            
+                        </li>
+                    ))}
                 </ol>
             </div>
             <div className="flex justify-center align-center">
