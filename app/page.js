@@ -40,7 +40,10 @@ export default function Home() {
         {data && data.results.map((result) => <PokeCard data={result}/>)}
       </div>
       <div className="flex flex-wrap">
-        {pageCount && pageCount.map((pageNumber) => <div className="p-2"><button onClick={() => changePage(pageNumber)}>{pageNumber}</button></div>)}
+        {pageCount && pageCount.map((pageNumber) => <div onClick={() => changePage(pageNumber)} className="p-3">{pageNumber}</div>)}
+      </div>
+      <div className="bg-blue-500 flex justify-center align-center p-2">
+        <h1 className="text-xl text-white">Wolman Company Limited - Hope House</h1>
       </div>
     </div>  
   );
