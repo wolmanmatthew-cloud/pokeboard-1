@@ -3,12 +3,10 @@ import './pokecard.css'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import typeObject from '../type-icons'
-import grassSvg from '../resources/icons/grass.svg'
 import Image from 'next/image'
 
 export default function PokeCard({ data }) {
     const [pokemonInfo, setPokemonInfo] = useState({})
-    const [showTypes, setShowTypes] = useState(false)
     const [showAbilities, setShowAbilities] = useState(false)
 
     useEffect(() => {

@@ -3,12 +3,19 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import PokeCard from '@/app/ui/pokecard'
 
+function capitalizeFirstLetter(str) {
+  console.log(str)
+  if (!str) return ''; // handle empty strings
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export default function Home() {
   const [data, setData] = useState({ results: []})
   const [pageCount, setPageCount] = useState([])
   const [pageNumber, setPageNumber] = useState(1)
   const [types, setTypes] = useState([])
   const [searchTypes, setSearchTypes] = useState([])
+  const [showTypes, setShowTypes] = useState(false)
 
   useEffect(() => {
     axios.get(`https://pokeapi.co/api/v2/pokemon/`)
@@ -141,12 +148,25 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center p-2">
-        <h1 className="text-2xl text-blue-500 p-1">Search by Type</h1>
-        <div className="p-1">
+        <div className="flex justify-center align-center">
+          <h1 className="text-2xl text-blue-500">Search by Type</h1>
+          <div className="flex items-center" onClick={() => setShowTypes(!showTypes)}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+              </svg>
+          </div>
+        </div>
+        
+        <div className={`p-1 ${showTypes ? "block" : "hidden"}`}>
           <div className="grid grid-cols-2 gap-3">
             {types && types.map((type) => 
-              <div className="flex justify-center items-center">
-                <input type="checkbox" onChange={(e) => updateSearchTypes(type, e)}/>{type}
+              <div className="flex items-center">
+                <div className="flex items-center">
+                  <input className="me-1" type="checkbox" onChange={(e) => updateSearchTypes(type, e)}/>
+                </div>
+                <div className="flex items-center">
+                  {capitalizeFirstLetter(type)}
+                </div>
               </div>
             )}
           </div>
