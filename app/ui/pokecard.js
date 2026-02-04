@@ -28,32 +28,29 @@ export default function PokeCard({ data }) {
                 const half_damage_from = []
                 const double_damage_from = []
                 const no_damage_from = []
-                
-                
-                    responseOne && responseOne.data.damage_relations.double_damage_from.forEach((obj) => double_damage_from.push(obj.name))
-                    responseTwo && responseTwo.data.damage_relations.double_damage_from.forEach((obj) => double_damage_from.push(obj.name))
 
-                    responseOne && responseOne.data.damage_relations.half_damage_from.forEach((obj) => half_damage_from.push(obj.name))
-                    responseTwo && responseTwo.data.damage_relations.half_damage_from.forEach((obj) => half_damage_from.push(obj.name))
+                responseOne && responseOne.data.damage_relations.double_damage_from.forEach((obj) => double_damage_from.push(obj.name))
+                responseTwo && responseTwo.data.damage_relations.double_damage_from.forEach((obj) => double_damage_from.push(obj.name))
 
-                    responseOne && responseOne.data.damage_relations.no_damage_from.forEach((obj) => no_damage_from.push(obj.name))
-                    responseTwo && responseTwo.data.damage_relations.no_damage_from.forEach((obj) => no_damage_from.push(obj.name))
-                    
-                    const proxyNoDamageDupes = no_damage_from.filter((val, i) => no_damage_from.indexOf(val) !== i)
-                    const proxyNoDamageSingles = no_damage_from.filter((val, i) => proxyNoDamageDupes.indexOf(val) === -1)
-                    const proxyNoDamage = [...proxyNoDamageDupes, ...proxyNoDamageSingles]
+                responseOne && responseOne.data.damage_relations.half_damage_from.forEach((obj) => half_damage_from.push(obj.name))
+                responseTwo && responseTwo.data.damage_relations.half_damage_from.forEach((obj) => half_damage_from.push(obj.name))
 
-                    const superStrong = half_damage_from.filter((val, i) => half_damage_from.indexOf(val) !== i)
-                    const proxyStrong = half_damage_from.filter((val) => superStrong.indexOf(val) === -1)
-                    
-                    const superWeak = double_damage_from.filter((val, i) => double_damage_from.indexOf(val) !== i)
-                    const proxyWeak = double_damage_from.filter((val) => superWeak.indexOf(val) === -1)
-                    
-                    const strong = proxyStrong.filter((val, i) => proxyWeak.indexOf(val) === -1)
-                    const weak = proxyWeak.filter((val, i) => proxyStrong.indexOf(val) === -1)
+                responseOne && responseOne.data.damage_relations.no_damage_from.forEach((obj) => no_damage_from.push(obj.name))
+                responseTwo && responseTwo.data.damage_relations.no_damage_from.forEach((obj) => no_damage_from.push(obj.name))
                 
-                
+                const proxyNoDamageDupes = no_damage_from.filter((val, i) => no_damage_from.indexOf(val) !== i)
+                const proxyNoDamageSingles = no_damage_from.filter((val, i) => proxyNoDamageDupes.indexOf(val) === -1)
+                const proxyNoDamage = [...proxyNoDamageDupes, ...proxyNoDamageSingles]
 
+                const superStrong = half_damage_from.filter((val, i) => half_damage_from.indexOf(val) !== i)
+                const proxyStrong = half_damage_from.filter((val) => superStrong.indexOf(val) === -1)
+                
+                const superWeak = double_damage_from.filter((val, i) => double_damage_from.indexOf(val) !== i)
+                const proxyWeak = double_damage_from.filter((val) => superWeak.indexOf(val) === -1)
+                
+                const strong = proxyStrong.filter((val, i) => proxyWeak.indexOf(val) === -1)
+                const weak = proxyWeak.filter((val, i) => proxyStrong.indexOf(val) === -1)
+                
                 superStrong.push(...proxyNoDamage)
                 setTypeRelations({
                     superStrong,
